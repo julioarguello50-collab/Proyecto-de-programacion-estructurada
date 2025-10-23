@@ -25,7 +25,7 @@ while(contador<semana_registro) {
         scanf("%f", &consumo_agua[contador][repetir]);
         if (consumo_agua[contador][repetir] > 300)
         {
-            printf("¡ALERTA! CONSUMO EXCESIVO DE AGUA\n");
+            printf("¡ALERTA! CONSUMO EXCESIVO DE AGUA O POSIBLE FUGA DE AGUA\n");
         }
         
         promedio_agua[contador] +=  consumo_agua[contador][repetir];
@@ -52,7 +52,7 @@ while(contador<semana_registro) {
         scanf("%f", &consumo_agua[contador][repetir]);
          if (consumo_agua[contador][repetir] > 300)
         {
-            printf("¡ALERTA! CONSUMO EXCESIVO DE AGUA o POSIBLE FUGA DE AGUA\n");
+            printf("¡ALERTA! CONSUMO EXCESIVO DE AGUA O POSIBLE FUGA DE AGUA\n");
         }
         promedio_agua[contador] +=  consumo_agua[contador][repetir];
         if(repetir==0) {
