@@ -20,27 +20,28 @@ if(entrada == 1) {
     printf("Cuantas semanas va a registrar?");
 scanf("%d",&semana_registro);
 if(semana_registro <=0) {
-    printf("opcion invalida\n Solo acepta numeros mayores a 0\n");
+    printf("opcion invalida\nSolo acepta numeros mayores a 0\n");
 }
     }while(semana_registro <=0);
 while(contador<semana_registro) {
     while (repetir < 7)
-    {
-        printf("Consumo del dia %d en litros: \n", repetir + 1);
-        scanf("%f", &consumo_agua[contador][repetir]);
-        if (consumo_agua[contador][repetir] >= 300)
+            {
+                    printf("Consumo del dia %d en litros: \n", repetir + 1);
+                    scanf("%f", &consumo_agua[contador][repetir]);
+                    if (consumo_agua[contador][repetir] >= 300)
+        
         {
             printf("¡ALERTA! CONSUMO EXCESIVO DE AGUA O POSIBLE FUGA DE AGUA\n");
         }
         
-        promedio_agua[contador] +=  consumo_agua[contador][repetir];
+                    promedio_agua[contador] +=  consumo_agua[contador][repetir];
        if(repetir==0) {
             max[contador] = consumo_agua[contador][repetir];
         } else {
              if(consumo_agua[contador][repetir] > max[contador]) max[contador] = consumo_agua[contador][repetir];
         }
             repetir ++;
-    }
+            }
         printf("\n");
         entrada = 2;
         repetir = 0; 
