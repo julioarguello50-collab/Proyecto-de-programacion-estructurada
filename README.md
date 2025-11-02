@@ -1,24 +1,39 @@
-#Consumo de agua en hogares 
-##Como compilar/ejecutar
+<h1>Consumo de agua en hogares</h1>
+<h2>Cómo compilar/ejecutar</h2>
+
 <p>
-Para poder utilizar el codigo necesitamos descargar ya sea la carpeta o un archivo en especifico. Para poder descargar la carpeta se hacen los siguientes pasos: 
-<li>1. En el proyecto de github nos vamos al apartado de code que se encuentra en la parte superior derecha del proyecto
-</li>
-<li>2. En el apartado de local seleccionamos la opcion de Download zip para descargar la carpeta completa
-</li>
-<li>3. Nos vamos a archivos y descomprimimos la carpeta del proyecto
-</li>
-<li>4. Damos clic en Extraer</li>
-<li>5. Ya tenemos la carpeta completamente descargada para poder ser utilizada</li>
-Una vez descargada la carpeta necesitamos de un IDE (Entorno de desarrollo integrado) para poder ejecutar el codigo que en este caso esta hecho en el lenguaje C. 
-Los IDE mas populares para ejecutar codigo C son los siguientes: 
-<li>Visual studio code (Vs Code)</li>
-<li>Visual studio</li>
-<li>Dev-c++</li>
-Tambien existen compiladores en linea que tambien pueden ejecutar codigo C, algunos ejemplos son: 
-<li>GDB online debugger</li>
-<li>myComplier</li>
-<li>OneCompiler</li>
-Para esta ocasion se usara Visual studio Code ya que es el mas popular para ejecutar codigo C
+Para poder utilizar el código necesitamos descargar ya sea la carpeta o un archivo en específico. 
+Para poder descargar la carpeta se hacen los siguientes pasos:
 </p>
+
+<ol>
+  <li>En el proyecto de GitHub nos vamos al apartado de <strong>Code</strong> que se encuentra en la parte superior derecha del proyecto.</li>
+  <li>En el apartado de <strong>Local</strong>, seleccionamos la opción <strong>Download ZIP</strong> para descargar la carpeta completa.</li>
+  <li>Vamos a los archivos y descomprimimos la carpeta del proyecto.</li>
+  <li>Damos clic en <strong>Extraer</strong>.</li>
+  <li>Ya tenemos la carpeta completamente descargada para poder ser utilizada.</li>
+</ol>
+
+<p>
+Una vez descargada la carpeta necesitamos un <strong>IDE (Entorno de Desarrollo Integrado)</strong> para poder ejecutar el código que en este caso está hecho en el lenguaje C. 
+</p>
+
+<p>Los IDE más populares para ejecutar código C son los siguientes:</p>
+
+<ul>
+  <li>Visual Studio Code (VS Code)</li>
+  <li>Visual Studio</li>
+  <li>Dev-C++</li>
+</ul>
+
+<p>También existen compiladores en línea que pueden ejecutar código C, algunos ejemplos son:</p>
+
+<ul>
+  <li>GDB Online Debugger</li>
+  <li>myCompiler</li>
+  <li>OneCompiler</li>
+</ul>
+
+<p>Para esta ocasión se usará <strong>Visual Studio Code</strong> ya que es el más popular para ejecutar código C.</p>
+
 
