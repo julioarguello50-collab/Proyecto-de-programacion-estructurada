@@ -17,13 +17,25 @@ int menu() {
 /*Funcion para registrar las semanas*/
 int Registro_semana() {
       do {
-          printf("Cuantas semanas va a registrar?");
+          printf("Cuantas semanas va a registrar?\n");
           scanf("%d",&semana_registro);
          if(semana_registro <=0) {
          printf("opcion invalida\nSolo acepta numeros mayores a 0\n");
             }
         }while(semana_registro <=0);
         return semana_registro;
+}
+/*funcion para registrar el consumo de agua por dia*/
+float Registro_dia(int repetir, int contador, float consumo_agua[51][7]) {
+                         do {
+                          printf("Consumo del dia %d en litros: \n", repetir + 1);
+                          if (scanf("%f", &consumo_agua[contador][repetir]) != 1 || consumo_agua[contador][repetir] <= 0) {
+                         printf("Error el programa no permite caracteres solo numeros mayores a 0\n");
+                         while (getchar() != '\n');  
+                         consumo_agua[contador][repetir] = -1;
+                         }
+                         } while (consumo_agua[contador][repetir] <= 0);
+                         return consumo_agua[contador][repetir];
 }
 /*Maximo consumo de agua*/
 float Maximo(int repetir, int contador, float consumo_agua[51][7],float max[51]) {
@@ -49,6 +61,9 @@ void impresion_semana(int semanas_imprimir,int j, int i, float consumo_agua[51][
     printf("Cuantas semanas quieres imprimir?\n");
 			scanf("%d",&semanas_imprimir);
 			for(j=0; j<semanas_imprimir ; j++) {
+                if (j % 4 == 0) {
+                printf("Mes %d\n",(j/4)+1);
+                }
 				printf("Semana %d\n",j+1); 
 				for(i=0; i<7; i++) {
 					semana = promedio_agua[j] /7;
@@ -83,11 +98,20 @@ void nueva_semana(int Semana_extra,int *contador, int repetir, float consumo_agu
     scanf("%d",&Semana_extra);
     switch(Semana_extra) {
             case 1:
+            if(*contador % 4 == 0) {
+                printf("Mes %d\n",(*contador/4)+1);
+            }
             printf("Semana %d\n",*contador+1);
             while (repetir < 7)
-        {
-            printf("Consumo del dia %d en litros: \n", repetir + 1);
-            scanf("%f", &consumo_agua[*contador][repetir]);
+              {
+                         do {
+                          printf("Consumo del dia %d en litros: \n", repetir + 1);
+                          if (scanf("%f", &consumo_agua[*contador][repetir]) != 1 || consumo_agua[*contador][repetir] <= 0) {
+                         printf("Error el programa no permite caracteres solo numeros mayores a 0\n");
+                         while (getchar() != '\n');  
+                         consumo_agua[*contador][repetir] = -1;
+                         }
+                         } while (consumo_agua[*contador][repetir] <= 0);
             /*Aqui se compara si la cantidad de agua que se introduce es mayor a 300 litros se lanza una alerta*/
             if (consumo_agua[*contador][repetir] >= 300)
             {
@@ -97,7 +121,7 @@ void nueva_semana(int Semana_extra,int *contador, int repetir, float consumo_agu
             /*maximo*/
             max[*contador] = Maximo(repetir,*contador,consumo_agua,max);
             repetir ++;
-        }
+                }
             (*contador) ++;
             printf("\n");
             repetir = 0;
@@ -113,13 +137,12 @@ void nueva_semana(int Semana_extra,int *contador, int repetir, float consumo_agu
     
 }
 /*funcion para el caso 3*/
-void Reporte_global(int contador, int j,int i, float semana,float promedio_agua[51]) {
+void Reporte_global(int contador, int j,float promedio_agua[51]) {
     for(j=0; j<contador;j++) {
-        printf("Semana %d\n",j+1);
-        for ( i = 0; i < 7; i++)
-        {
-            semana = promedio_agua[j] / 7;
+        if (j % 4 == 0) {
+            printf("Mes %d\n",(j/4)+1);
         }
+        printf("Semana %d\n",j+1);
         suma += promedio_agua[j];
         printf("El total de agua consumida en esta semana es de: %0.2f\n", promedio_agua[j]);
         printf("\n");
