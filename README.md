@@ -1,4 +1,4 @@
-<h1>Consumo de agua en hogares</h1>
+<h1>Consumo de agua en hogares &#128167; </h1>
 <h2>Cómo compilar/ejecutar</h2>
 
 <p>
