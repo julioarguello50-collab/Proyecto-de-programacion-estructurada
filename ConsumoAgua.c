@@ -15,13 +15,13 @@ int main(){
 do{
 /*Menu principal*/
 menu();
-
+/*Toma la opcion que ingreso el usuario y evalua en cual de los casos entra*/
 switch (opcion)
 {
 case 1:
 if(entrada == 1) {
     /*Registro de las semanas*/
-         Registro_semana();
+        Registro_semana();
         
         while(contador<semana_registro) {
             if(contador % 4 == 0) {
@@ -30,16 +30,17 @@ if(entrada == 1) {
         printf("Semana %d\n",contador +1);
         while (repetir < 7)
                 {
-                        /*Registro de los dias consumiendo agua*/
+                        /*Mandamos a llamar a la funcion para registrar el consumo de agua en un dia*/
                         Registro_dia( repetir,contador,consumo_agua);
                         /*Identificando el umbral*/
+                        /*Aqui se compara si la cantidad de agua que se introduce es mayor a 300 litros se lanza una alerta*/
                         if (consumo_agua[contador][repetir] >= 300)  
-                          {
-                             printf("¡ALERTA! CONSUMO EXCESIVO DE AGUA O POSIBLE FUGA DE AGUA\n");
-                          }
+                        {
+                            printf("¡ALERTA! CONSUMO EXCESIVO DE AGUA O POSIBLE FUGA DE AGUA\n");
+                        }
                         promedio_agua[contador] +=  consumo_agua[contador][repetir];
                         /*Maximo*/
-                         max[contador] = Maximo(repetir,contador,consumo_agua,max);
+                        max[contador] = Maximo(repetir,contador,consumo_agua,max);
                         repetir ++;
                 }
         printf("\n");
@@ -48,15 +49,17 @@ if(entrada == 1) {
         contador ++;
     }
     /*le dise al usuario si quiere agregar una nueva semana despues de registrar sus primeras semanas*/
-         nueva_semana( Semana_extra, &contador, repetir, consumo_agua, max, promedio_agua); 
+        nueva_semana( Semana_extra, &contador, repetir, consumo_agua, max, promedio_agua); 
 }
- else {
+else {
     /*si el usuario ingresa nuevamente a la opcion 1 el programa preguntara si quiere agregar una nueva semana*/
         nueva_semana( Semana_extra, &contador, repetir, consumo_agua, max, promedio_agua); 
     
 }
             break;
 case 2: 
+    /*Si el usuario seleccion la opcion 2 se pregunta cuantas semanas se van a imprimir e imprime cada una de las semanas
+    mostrando la cantidad de agua consumida, el umbral, el promedio, el porcentaje del umbral en una semana*/
         impresion_semana(semanas_imprimir,i,j,consumo_agua,Consumo_excesivo,Consumo_global,promedio_agua,semana,mes,suma);
             break;
 case 3:/*Reporte global*/
@@ -80,7 +83,7 @@ case 4:
         printf("Que semana quiere reduccir: \n");
         scanf("%d", &semanas_imprimir);
         /*Se obtiene el procentaje de la reduccion y despues se resta con el consumo_agua*/
-       simular_reduccion(reduccion,semanas_imprimir,simular_ahorro, reduccion2,consumo_agua,reduccion_agua); 
+        simular_reduccion(reduccion,semanas_imprimir,simular_ahorro, reduccion2,consumo_agua,reduccion_agua); 
         break;
 case 5: 
 printf("Programa terminado\n");
@@ -89,8 +92,7 @@ default:
         printf("opcion no valida\n");
         break;
 
-    }
-}while (opcion != 5);
+} }while (opcion != 5);
 
     return 0;
 }
