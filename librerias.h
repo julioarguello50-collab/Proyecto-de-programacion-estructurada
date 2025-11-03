@@ -12,7 +12,7 @@ int menu() {
             printf("Ingrese una opcion: \n");
             /*Compara la opcion que ingresa el usuario si ingresa un caracter, letra o un numero menor o igual a cero el programa se reinicia
             hasta que el usuario introduzca un valor numerico mayor a cero*/
-        if(scanf("%d", &opcion) != 1 || opcion <=0) {
+            if(scanf("%d", &opcion) != 1 || opcion <=0) {
             printf("Error el programa no permite caracteres solo numeros mayores a 0\n");
             /*En caso de marcar el error limpia el scanf para que no guarde ese valor erroneo*/
             fflush(stdin);
@@ -30,11 +30,14 @@ int menu() {
 int Registro_semana() {
     do {
         printf("Cuantas semanas va a registrar?\n");
-        scanf("%d",&semana_registro);
         /*Si el usuario ingresa un valor erroneo se reinicia hasta que ponga un valor numero y que sea mayor a cero*/
-        if(semana_registro <=0) 
-        {
-            printf("opcion invalida\nSolo acepta numeros mayores a 0\n");
+        if(scanf("%d", &semana_registro) != 1 ||semana_registro<=0) {
+            printf("Error el programa no permite caracteres solo numeros mayores a 0\n");
+            /*En caso de marcar el error limpia el scanf para que no guarde ese valor erroneo*/
+            fflush(stdin);
+            printf("\n");
+            system("pause");
+            system("cls");
         }
         }while(semana_registro <=0);
         return semana_registro;
@@ -80,8 +83,17 @@ void datos_semana(int j, float promedio_agua[51],float semana,int Consumo_excesi
 }
 /*funcion para todo el caso 2*/
 void impresion_semana(int semanas_imprimir,int j, int i, float consumo_agua[51][7],int Consumo_excesivo,int Consumo_global,float promedio_agua[51],float semana,float mes,float suma) {
-    printf("Cuantas semanas quieres imprimir?\n");
-	scanf("%d",&semanas_imprimir);
+    do {
+        printf("Cuantas semanas quieres imprimir?\n");
+        if(scanf("%d", &semanas_imprimir) != 1 ||semanas_imprimir<=0) {
+            printf("Error el programa no permite caracteres solo numeros mayores a 0\n");
+            /*En caso de marcar el error limpia el scanf para que no guarde ese valor erroneo*/
+            fflush(stdin);
+            printf("\n");
+            system("pause");
+            system("cls");
+        }
+    }while(semanas_imprimir <=0);
         /*Comienza el bucle para imprimir las semanas*/
 			for(j=0; j<semanas_imprimir ; j++) {
                 if (j % 4 == 0) {

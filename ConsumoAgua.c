@@ -76,12 +76,29 @@ case 3:/*Reporte global*/
             break;
 case 4:
         /*Simulador de reduccion de agua*/
+        do{
         printf("De cuanto quiere su reduccion de agua: \n");
-        scanf("%d", &simular_ahorro);
-        printf("\n");
+        if(scanf("%d", &simular_ahorro) != 1 || simular_ahorro <=0) {
+            printf("Error el programa no permite caracteres solo numeros mayores a 0\n");
+            /*En caso de marcar el error limpia el scanf para que no guarde ese valor erroneo*/
+            fflush(stdin);
+            printf("\n");
+            system("pause");
+            system("cls");
+        }
+        }while(simular_ahorro <=0);
         /*Se pide la semana que quiere hacer la simulacion de ahorro*/
+        do{
         printf("Que semana quiere reduccir: \n");
-        scanf("%d", &semanas_imprimir);
+        if(scanf("%d", &semanas_imprimir) != 1 || semanas_imprimir <=0) {
+            printf("Error el programa no permite caracteres solo numeros mayores a 0\n");
+            /*En caso de marcar el error limpia el scanf para que no guarde ese valor erroneo*/
+            fflush(stdin);
+            printf("\n");
+            system("pause");
+            system("cls");
+        }
+        }while(semanas_imprimir <= 0);
         /*Se obtiene el procentaje de la reduccion y despues se resta con el consumo_agua*/
         simular_reduccion(reduccion,semanas_imprimir,simular_ahorro, reduccion2,consumo_agua,reduccion_agua); 
         break;
