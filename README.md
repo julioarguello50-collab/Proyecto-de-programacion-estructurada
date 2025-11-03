@@ -21,7 +21,7 @@ Una vez descargada la carpeta necesitamos un <strong>IDE (Entorno de Desarrollo 
 <p>Los IDE más populares para ejecutar código C son los siguientes:</p>
 
 <ul>
-  <li>Visual Studio Code (VS Code)</li>
+  <li>Visual Studio Code (VS Code) </li>
   <li>Visual Studio</li>
   <li>Dev-C++</li>
 </ul>
@@ -36,4 +36,24 @@ Una vez descargada la carpeta necesitamos un <strong>IDE (Entorno de Desarrollo 
 
 <p>Para esta ocasión se usará <strong>Visual Studio Code</strong> ya que es el más popular para ejecutar código C.</p>
 
+
+<h3>
+Como ejecutar codigo C en vscode
+</h3>
+<p>
+Para poder ejecutar nuestro proyecto es importante que la computadora que se utilice para compilar tenga el compilador de C ya que sin este el codigo no podra ser ejecutado por <strong>Vs code</strong> para esto tenemos que entrar a la terminal de la computadora. 
+<p>
+Para windows se utiliza la tecla windows + r 
+Para mac con el atajo de teclado ⌘ + Espacio, escribir "Terminal" y presionar Enter. 
+se ejecuta el comando gcc -version. 
+Si no aparece la version es porque no tienes el compilador si es asi en el siguiente enlace es para un video en youtube para poder instalar el compilador
+<a href="https://www.youtube.com/watch?v=GEZLjRSY_m8&t=306s">Instalar el compilador de para C/C++</a>
+
+Una vez hecho esto basta con abrir la carpeta previamente descargada denominada <strong>Proyecto de programacion estructurada</strong> y abrir el archivo <strong>ConsumoAgua.C</strong>
+Despues en el editor de codigo para compilar nos hiremos a la parte superior derecha y daremos clic en el triangulo para poder compilar y ejecutar el codigo. 
+
+Finalmente se podra visualizar el programa ya compilado para poder ser usado.
+
+</p>
+</p>
 
