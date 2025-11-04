@@ -1,8 +1,8 @@
 #include<stdio.h>
 #ifndef VARIABLES_H
 #define VARIABLES_H
-extern float consumo_agua[51][7],reduccion_agua, promedio_agua[51], mes, semana;
-extern float suma, max[51], reduccion,reduccion2;
+extern float consumo_agua[51][7],reduccion_agua, promedio_agua[51], promedio_global, promedio_semana;
+extern float suma_global, max[51], porcentaje_reduccion,ahorro_agua;
 extern int repetir, opcion,semana_registro,entrada,Semana_extra,contador,j,i,semanas_imprimir;
 extern int simular_ahorro,Consumo_excesivo,Consumo_global;
 /*funcion para el menu principal*/
@@ -74,15 +74,15 @@ float Maximo(int repetir, int contador, float consumo_agua[51][7],float max[51])
                 return max[contador];
 }
 /*funcion para imprimir los datos de la semana del caso 2*/
-void datos_semana(int j, float promedio_agua[51],float semana,int Consumo_excesivo,float max[51]) {
+void datos_semana(int j, float promedio_agua[51],float promedio_semana,int Consumo_excesivo,float max[51]) {
                 printf("EL total de agua consumida en la semana es de %0.2f\n",promedio_agua[j]);
-				printf("EL promedio de la semana es de %0.2f\n ",semana);
+				printf("EL promedio de la semana es de %0.2f\n ",promedio_semana);
 				printf("El porcentaje de dias que superaron el umbral en la semana es de %0.2f\n",((float)Consumo_excesivo/7)*100);
 				printf("La mayor cantidad de agua consumo en un dia es de: %0.2f\n",max[j]);
 				printf("\n");
 }
 /*funcion para todo el caso 2*/
-void impresion_semana(int semanas_imprimir,int j, int i, float consumo_agua[51][7],int Consumo_excesivo,int Consumo_global,float promedio_agua[51],float semana,float mes,float suma) {
+void impresion_semana(int semanas_imprimir,int j, int i, float consumo_agua[51][7],int Consumo_excesivo,int Consumo_global,float promedio_agua[51],float promedio_semana,float promedio_global,float suma_global) {
     do {
         printf("Cuantas semanas quieres imprimir?\n");
         if(scanf("%d", &semanas_imprimir) != 1 ||semanas_imprimir<=0) {
@@ -104,7 +104,7 @@ void impresion_semana(int semanas_imprimir,int j, int i, float consumo_agua[51][
                 /*Empienza con semana 1 hasta termina con la impresion de las semanas*/
 				printf("Semana %d\n",j+1); 
 				for(i=0; i<7; i++) {
-					semana = promedio_agua[j] /7;
+					promedio_semana = promedio_agua[j] /7;
 					printf("Consumo del dia %d: %.2f \n",i+1,consumo_agua[j][i]); 
                     /*Si el valor que se imprime es mayor a 300 entran en la siguiente condicion para calcular el procentaje de dias 
                     que superaron el umbral*/
@@ -114,20 +114,20 @@ void impresion_semana(int semanas_imprimir,int j, int i, float consumo_agua[51][
 					}
 				}
                 /*Se guardan en la variable suma para calcular la cantidad de agua consumida por la familia*/
-				suma += promedio_agua[j];
+				suma_global += promedio_agua[j];
                 /*Mandamos a llamar la funcion datos_semana para imprimir el resumen de la semana*/
-				datos_semana( j, promedio_agua, semana, Consumo_excesivo, max);
+				datos_semana( j, promedio_agua, promedio_semana, Consumo_excesivo, max);
                 Consumo_excesivo = 0;
 				system("pause");
 				system("cls");
 			}
             /*la variable suma se divide entre las semanas impresas y se guarda en la nueva varible mes
             para calcular el porcentaje de agua consumida en todo el registro*/
-            mes = suma / semanas_imprimir;
-			printf("EL total de agua consumida en base a las semanas registradas es de: %.2f\n",suma);
+            promedio_global = suma_global / semanas_imprimir;
+			printf("EL total de agua consumida en base a las semanas registradas es de: %.2f\n",suma_global);
 			printf("El porcentaje de los dias que superaron el umbral de manera global es de: %.2f\n",((float)Consumo_global / (semanas_imprimir*7))*100);
-			printf("EL promedio del total es de %.2f\n",mes);
-            suma = 0; 
+			printf("EL promedio del total es de %.2f\n",promedio_global);
+            suma_global = 0; 
 			Consumo_global = 0; 
 			system("pause");
 			system("cls");
@@ -191,23 +191,23 @@ void Reporte_global(int contador, int j,float promedio_agua[51]) {
             printf("Mes %d\n",(j/4)+1);
         }
         printf("Semana %d\n",j+1);
-        suma += promedio_agua[j];
+        suma_global += promedio_agua[j];
         printf("El total de agua consumida en esta semana es de: %0.2f\n", promedio_agua[j]);
         printf("\n");
     }
 }
 /*funcion para hacer la simulacion de agua*/
-void simular_reduccion(float reduccion, int semanas_imprimir, int simular_ahorro, float reduccion2, float consumo_agua[51][7],float reduccion_agua) {
-    reduccion = (float)simular_ahorro / 100;
+void simular_reduccion(float porcentaje_reduccion, int semanas_imprimir, int simular_ahorro, float ahorro_agua, float consumo_agua[51][7],float reduccion_agua) {
+        porcentaje_reduccion = (float)simular_ahorro / 100;
         printf("Semana %d\n",semanas_imprimir);
         for ( i = 0; i < 7; i++)
         {
-            reduccion_agua += consumo_agua[semanas_imprimir - 1][i] - (consumo_agua[semanas_imprimir - 1][i]*reduccion);
-            reduccion2 += consumo_agua[semanas_imprimir - 1][i]; 
+            reduccion_agua += consumo_agua[semanas_imprimir - 1][i] - (consumo_agua[semanas_imprimir - 1][i]*porcentaje_reduccion);
+            ahorro_agua += consumo_agua[semanas_imprimir - 1][i]; 
             /*se repite la accion para los 7 dias de la semana que se esta reduciendo*/
         }
         /*Por ultimo se imprime el resultado de la simulacion del ahorro*/
-        printf("Si se reduce en %d%% a su consumo total se estaria ahorrando %.2f litros por lo que usted estaria consumiendo %.2f \n\n", simular_ahorro, reduccion2*reduccion ,reduccion_agua);
+        printf("Si se reduce en %d%% a su consumo total se estaria ahorrando %.2f litros por lo que usted estaria consumiendo %.2f \n\n", simular_ahorro, ahorro_agua*porcentaje_reduccion ,reduccion_agua);
         reduccion_agua = 0.0;
 }
 #endif

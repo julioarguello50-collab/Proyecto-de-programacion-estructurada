@@ -7,8 +7,8 @@ Juan jesus Magaña Palomeque
 Luis Alberto Iturria Mendez
 Felix Roberto Joo Cordero
 Samuel de la cruz Lopez*/
-float consumo_agua[51][7] = {0},reduccion_agua = 0.0, promedio_agua[51], mes = 0, semana = 0;
-float suma = 0, max[51], reduccion,reduccion2;
+float consumo_agua[51][7] = {0},reduccion_agua = 0.0, promedio_agua[51], promedio_global = 0, promedio_semana = 0;
+float suma_global = 0, max[51], porcentaje_reduccion,ahorro_agua;
 int repetir = 0, opcion,semana_registro,entrada=1,Semana_extra,contador = 0,j,i,semanas_imprimir;
 int simular_ahorro,Consumo_excesivo=0,Consumo_global=0;
 int main(){
@@ -60,17 +60,17 @@ else {
 case 2: 
     /*Si el usuario seleccion la opcion 2 se pregunta cuantas semanas se van a imprimir e imprime cada una de las semanas
     mostrando la cantidad de agua consumida, el umbral, el promedio, el porcentaje del umbral en una semana*/
-        impresion_semana(semanas_imprimir,i,j,consumo_agua,Consumo_excesivo,Consumo_global,promedio_agua,semana,mes,suma);
+        impresion_semana(semanas_imprimir,i,j,consumo_agua,Consumo_excesivo,Consumo_global,promedio_agua,promedio_semana,promedio_global,suma_global);
             break;
 case 3:/*Reporte global*/
     /*Se imprmien unicamente la semana sin los dias y el total de agua consumida en esa semana ademas del promedio de agua
     consumida en esa semana*/
         Reporte_global(contador,j,promedio_agua);
     
-        mes = suma / contador;
-        printf("El total de agua consumida en todas las semanas es de: %0.2f \n", suma);
-        printf("El promedio total de agua es de: %0.2f \n", mes);
-        suma = 0;
+        promedio_global = suma_global / contador;
+        printf("El total de agua consumida en todas las semanas es de: %0.2f \n", suma_global);
+        printf("El promedio total de agua es de: %0.2f \n", promedio_global);
+        suma_global = 0;
         system("pause");
         system("cls");
             break;
@@ -100,7 +100,7 @@ case 4:
         }
         }while(semanas_imprimir <= 0);
         /*Se obtiene el procentaje de la reduccion y despues se resta con el consumo_agua*/
-        simular_reduccion(reduccion,semanas_imprimir,simular_ahorro, reduccion2,consumo_agua,reduccion_agua); 
+        simular_reduccion(porcentaje_reduccion,semanas_imprimir,simular_ahorro, ahorro_agua,consumo_agua,reduccion_agua); 
         break;
 case 5: 
 printf("Programa terminado\n");
