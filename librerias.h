@@ -1,11 +1,23 @@
 #include<stdio.h>
+#include<stdlib.h>
 #ifndef VARIABLES_H
 #define VARIABLES_H
 extern float consumo_agua[51][7],reduccion_agua, promedio_agua[51], promedio_global, promedio_semana;
 extern float suma_global, max[51], porcentaje_reduccion,ahorro_agua;
-extern int repetir, opcion,semana_registro,entrada,Semana_extra,contador,j,i,semanas_imprimir;
-extern int simular_ahorro,Consumo_excesivo,Consumo_global;
+extern int dias, opcion,semana_registro,entrada,Semana_extra,semana,j,i,semanas_imprimir;
+extern int simular_ahorro,Consumo_excesivo,Consumo_global,c;
 /*funcion para el menu principal*/
+void limpieza_codigo(int c){
+            while ((c = getchar()) != '\n' && c != EOF);
+            printf("\n");
+            printf("Presione una tecla para continuar\n");
+            getchar();
+            #ifdef _WIN32
+            system("cls");
+            #else
+            system("clear");
+            #endif
+}
 int menu() {
     do {
             printf("[1] --- Consumo por dia de agua\n[2] --- Reporte semanal\n[3] --- Reporte global\n[4] --- Simulacion de ahorro\n[5] --- salir\n");
@@ -15,10 +27,6 @@ int menu() {
             if(scanf("%d", &opcion) != 1 || opcion <=0) {
             printf("Error el programa no permite caracteres solo numeros mayores a 0\n");
             /*En caso de marcar el error limpia el scanf para que no guarde ese valor erroneo*/
-            fflush(stdin);
-            printf("\n");
-            system("pause");
-            system("cls");
         }
         /*El bucle termima hasta que el usuario introduzca un valor mayor a cero*/
     }while(opcion <= 0);
@@ -31,47 +39,49 @@ int Registro_semana() {
     do {
         printf("Cuantas semanas va a registrar?\n");
         /*Si el usuario ingresa un valor erroneo se reinicia hasta que ponga un valor numero y que sea mayor a cero*/
-        if(scanf("%d", &semana_registro) != 1 ||semana_registro<=0) {
-            printf("Error el programa no permite caracteres solo numeros mayores a 0\n");
+        if(scanf("%d", &semana_registro) != 1 ||semana_registro<=0 || semana_registro > 51) {
+            printf("Error el programa no permite caracteres solo numeros mayores a 0\n Ademas el limite de semanas a registrar es de 51\n");
             /*En caso de marcar el error limpia el scanf para que no guarde ese valor erroneo*/
-            fflush(stdin);
-            printf("\n");
-            system("pause");
-            system("cls");
+            limpieza_codigo(c);
+            semana_registro = 0;
         }
         }while(semana_registro <=0);
         return semana_registro;
 }
 /*funcion para registrar el consumo de agua por dia*/
-float Registro_dia(int repetir, int contador, float consumo_agua[51][7]) {
+float Registro_dia(int dias, int semana, float consumo_agua[51][7]) {
         do {
-            printf("Consumo del dia %d en litros: \n", repetir + 1);
+            printf("Consumo del dia %d en litros: \n", dias + 1);
             /*Compara si el usuario ingreso un numero o si ingreso un dato erroneo*/
-            if (scanf("%f", &consumo_agua[contador][repetir]) != 1 || consumo_agua[contador][repetir] <= 0) 
+            if (scanf("%f", &consumo_agua[semana][dias]) != 1 || consumo_agua[semana][dias] <= 0) 
             {
                 printf("Error el programa no permite caracteres solo numeros mayores a 0\n");
-                fflush(stdin);  
-                consumo_agua[contador][repetir] = -1;
+                int c;
+                while ((c = getchar()) != '\n' && c != EOF);
+                printf("\n");
+                printf("Presione una tecla para continuar\n");
+                getchar();
+                consumo_agua[semana][dias] = -1;
                 }
-                } while (consumo_agua[contador][repetir] <= 0);
+                } while (consumo_agua[semana][dias] <= 0);
                 /*Retornamos el valor que ingresa el usuario y se guarda en el arrego bidimensional*/
-                return consumo_agua[contador][repetir];
+                return consumo_agua[semana][dias];
 }
 /*Maximo consumo de agua*/
-float Maximo(int repetir, int contador, float consumo_agua[51][7],float max[51]) {
+float Maximo(int dias, int semana, float consumo_agua[51][7],float max[51]) {
     /*Compara los valores ingresados por el usuario para calcular la mayor cantidad de agua consumida en un dia*/
     /*si el dato es el primero entonces sera nuestro maximo valor hasta que se encuentre un valor mayor*/
-            if (repetir == 0) {
-                    max[contador] = consumo_agua[contador][repetir];
+            if (dias == 0) {
+                    max[semana] = consumo_agua[semana][dias];
                 } 
                 else {
                     /*El valor que entra al if se compara con el valor de max[contador] que se guardo anteriormente
                     si es mayor entonces sera el nuevo valor de max[contador] y esto se repitira un total de 7 veces*/
-                    if(consumo_agua[contador][repetir] > max[contador]) {
-                            max[contador] = consumo_agua[contador][repetir];
+                    if(consumo_agua[semana][dias] > max[semana]) {
+                            max[semana] = consumo_agua[semana][dias];
                                 }
                         }
-                return max[contador];
+                return max[semana];
 }
 /*funcion para imprimir los datos de la semana del caso 2*/
 void datos_semana(int j, float promedio_agua[51],float promedio_semana,int Consumo_excesivo,float max[51]) {
@@ -80,20 +90,31 @@ void datos_semana(int j, float promedio_agua[51],float promedio_semana,int Consu
 				printf("El porcentaje de dias que superaron el umbral en la semana es de %0.2f\n",((float)Consumo_excesivo/7)*100);
 				printf("La mayor cantidad de agua consumo en un dia es de: %0.2f\n",max[j]);
 				printf("\n");
+                printf("Presione una tecla para continuar\n");
+                while (getchar() != '\n');
+				#ifdef _WIN32
+                system("cls");
+                #else
+                system("clear");
+                #endif
 }
 /*funcion para todo el caso 2*/
 void impresion_semana(int semanas_imprimir,int j, int i, float consumo_agua[51][7],int Consumo_excesivo,int Consumo_global,float promedio_agua[51],float promedio_semana,float promedio_global,float suma_global) {
     do {
-        printf("Cuantas semanas quieres imprimir?\n");
-        if(scanf("%d", &semanas_imprimir) != 1 ||semanas_imprimir<=0) {
-            printf("Error el programa no permite caracteres solo numeros mayores a 0\n");
-            /*En caso de marcar el error limpia el scanf para que no guarde ese valor erroneo*/
-            fflush(stdin);
-            printf("\n");
-            system("pause");
-            system("cls");
-        }
-    }while(semanas_imprimir <=0);
+    printf("Cuantas semanas quieres imprimir?\n");
+    if (scanf("%d", &semanas_imprimir) != 1 || semanas_imprimir <= 0) {
+        printf("Error: el programa no permite caracteres, solo números mayores a 0.\n");
+        // Limpieza de buffer de entrada
+        limpieza_codigo(c);
+        semanas_imprimir = 0;
+    }
+
+} while (semanas_imprimir <= 0);
+
+// Limpia el buffer que queda después de un scanf válido
+        while ((c = getchar()) != '\n' && c != EOF){
+    /*limpieza de pantalla*/
+}
         /*Comienza el bucle para imprimir las semanas*/
 			for(j=0; j<semanas_imprimir ; j++) {
                 if (j % 4 == 0) {
@@ -118,8 +139,6 @@ void impresion_semana(int semanas_imprimir,int j, int i, float consumo_agua[51][
                 /*Mandamos a llamar la funcion datos_semana para imprimir el resumen de la semana*/
 				datos_semana( j, promedio_agua, promedio_semana, Consumo_excesivo, max);
                 Consumo_excesivo = 0;
-				system("pause");
-				system("cls");
 			}
             /*la variable suma se divide entre las semanas impresas y se guarda en la nueva varible mes
             para calcular el porcentaje de agua consumida en todo el registro*/
@@ -133,7 +152,7 @@ void impresion_semana(int semanas_imprimir,int j, int i, float consumo_agua[51][
 			system("cls");
 }
 /*para poder registrar una nueva semana*/
-void nueva_semana(int Semana_extra,int *contador, int repetir, float consumo_agua[51][7],float max[51],float promedio_agua[51]) {
+void nueva_semana(int Semana_extra,int *semana, int dias, float consumo_agua[51][7],float max[51],float promedio_agua[51]) {
     /*Para agregar una semana mas a las que ya tenia registrada*/
     /*si escoge uno realiza lo siguente*/
     do{
@@ -141,35 +160,35 @@ void nueva_semana(int Semana_extra,int *contador, int repetir, float consumo_agu
     scanf("%d",&Semana_extra);
         switch(Semana_extra) {
             case 1:
-                if(*contador % 4 == 0) {
-                printf("Mes %d\n",(*contador/4)+1);
+                if(*semana % 4 == 0) {
+                printf("Mes %d\n",(*semana/4)+1);
             }
-                printf("Semana %d\n",*contador+1);
-            while (repetir < 7)
+                printf("Semana %d\n",*semana+1);
+            while (dias < 7)
             {
                 do {
-                    printf("Consumo del dia %d en litros: \n", repetir + 1);
-                    if (scanf("%f", &consumo_agua[*contador][repetir]) != 1 || consumo_agua[*contador][repetir] <= 0)
+                    printf("Consumo del dia %d en litros: \n", dias + 1);
+                    if (scanf("%f", &consumo_agua[*semana][dias]) != 1 || consumo_agua[*semana][dias] <= 0)
                     {
                         /*Si se ingresa un valor que no sea numero o menor a cero imprime el error y limpia el scanf*/
                         printf("Error el programa no permite caracteres solo numeros mayores a 0\n");
-                        fflush(stdin);
-                        consumo_agua[*contador][repetir] = -1;
+                        limpieza_codigo(c);
+                        consumo_agua[*semana][dias] = -1;
                     }
-                } while (consumo_agua[*contador][repetir] <= 0);
+                } while (consumo_agua[*semana][dias] <= 0);
             /*Aqui se compara si la cantidad de agua que se introduce es mayor a 300 litros se lanza una alerta*/
-            if (consumo_agua[*contador][repetir] >= 300)
+            if (consumo_agua[*semana][dias] >= 300)
             {
                 printf("¡ALERTA! CONSUMO EXCESIVO DE AGUA O POSIBLE FUGA DE AGUA\n");
             }
-            promedio_agua[*contador] +=  consumo_agua[*contador][repetir];
+            promedio_agua[*semana] +=  consumo_agua[*semana][dias];
             /*Mandamos a llamar a la funcion Maximo para deducir la mayor cantidad de agua consumida en un dia*/
-            max[*contador] = Maximo(repetir,*contador,consumo_agua,max);
-            repetir ++;
-                }
-            (*contador) ++;
+            max[*semana] = Maximo(dias,*semana,consumo_agua,max);
+            dias ++;
+            }
+            (*semana) ++;
             printf("\n");
-            repetir = 0;
+            dias = 0;
             break;
             /*si escoge dos entonces termina esta parte del programa*/
             case 2: 
@@ -182,10 +201,10 @@ void nueva_semana(int Semana_extra,int *contador, int repetir, float consumo_agu
     
 }
 /*funcion para el caso 3*/
-void Reporte_global(int contador, int j,float promedio_agua[51]) {
+void Reporte_global(int semana, int j,float promedio_agua[51]) {
     /*Esta funcion sirve para imprimir unicamente las semanas registradas mostrando unicamente 
     el total de agua consumida en cada semana*/
-    for(j=0; j<contador;j++) 
+    for(j=0; j<semana;j++) 
     {
         if (j % 4 == 0) {
             printf("Mes %d\n",(j/4)+1);

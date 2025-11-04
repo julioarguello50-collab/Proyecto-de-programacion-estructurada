@@ -9,8 +9,8 @@ Felix Roberto Joo Cordero
 Samuel de la cruz Lopez*/
 float consumo_agua[51][7] = {0},reduccion_agua = 0.0, promedio_agua[51], promedio_global = 0, promedio_semana = 0;
 float suma_global = 0, max[51], porcentaje_reduccion,ahorro_agua;
-int repetir = 0, opcion,semana_registro,entrada=1,Semana_extra,contador = 0,j,i,semanas_imprimir;
-int simular_ahorro,Consumo_excesivo=0,Consumo_global=0;
+int dias = 0, opcion,semana_registro,entrada=1,Semana_extra,semana = 0,j,i,semanas_imprimir;
+int simular_ahorro,Consumo_excesivo=0,Consumo_global=0,c;
 int main(){
 do{
 /*Menu principal*/
@@ -23,37 +23,37 @@ if(entrada == 1) {
     /*Registro de las semanas*/
         Registro_semana();
         
-        while(contador<semana_registro) {
-            if(contador % 4 == 0) {
-                printf("Mes %d\n",(contador/4)+1);
+        while(semana<semana_registro) {
+            if(semana % 4 == 0) {
+                printf("Mes %d\n",(semana/4)+1);
             }
-        printf("Semana %d\n",contador +1);
-        while (repetir < 7)
+        printf("Semana %d\n",semana +1);
+        while (dias < 7)
                 {
                         /*Mandamos a llamar a la funcion para registrar el consumo de agua en un dia*/
-                        Registro_dia( repetir,contador,consumo_agua);
+                        Registro_dia( dias,semana,consumo_agua);
                         /*Identificando el umbral*/
                         /*Aqui se compara si la cantidad de agua que se introduce es mayor a 300 litros se lanza una alerta*/
-                        if (consumo_agua[contador][repetir] >= 300)  
+                        if (consumo_agua[semana][dias] >= 300)  
                         {
                             printf("¡ALERTA! CONSUMO EXCESIVO DE AGUA O POSIBLE FUGA DE AGUA\n");
                         }
-                        promedio_agua[contador] +=  consumo_agua[contador][repetir];
+                        promedio_agua[semana] +=  consumo_agua[semana][dias];
                         /*Maximo*/
-                        max[contador] = Maximo(repetir,contador,consumo_agua,max);
-                        repetir ++;
+                        max[semana] = Maximo(dias,semana,consumo_agua,max);
+                        dias ++;
                 }
         printf("\n");
         entrada = 2;
-        repetir = 0; 
-        contador ++;
+        dias = 0; 
+        semana ++;
     }
     /*le dise al usuario si quiere agregar una nueva semana despues de registrar sus primeras semanas*/
-        nueva_semana( Semana_extra, &contador, repetir, consumo_agua, max, promedio_agua); 
+        nueva_semana( Semana_extra, &semana, dias, consumo_agua, max, promedio_agua); 
 }
 else {
     /*si el usuario ingresa nuevamente a la opcion 1 el programa preguntara si quiere agregar una nueva semana*/
-        nueva_semana( Semana_extra, &contador, repetir, consumo_agua, max, promedio_agua); 
+        nueva_semana( Semana_extra, &semana, dias, consumo_agua, max, promedio_agua); 
     
 }
             break;
@@ -65,14 +65,13 @@ case 2:
 case 3:/*Reporte global*/
     /*Se imprmien unicamente la semana sin los dias y el total de agua consumida en esa semana ademas del promedio de agua
     consumida en esa semana*/
-        Reporte_global(contador,j,promedio_agua);
+        Reporte_global(semana,j,promedio_agua);
     
-        promedio_global = suma_global / contador;
+        promedio_global = suma_global / semana;
         printf("El total de agua consumida en todas las semanas es de: %0.2f \n", suma_global);
         printf("El promedio total de agua es de: %0.2f \n", promedio_global);
         suma_global = 0;
-        system("pause");
-        system("cls");
+        limpieza_codigo(c);
             break;
 case 4:
         /*Simulador de reduccion de agua*/
@@ -81,10 +80,7 @@ case 4:
         if(scanf("%d", &simular_ahorro) != 1 || simular_ahorro <=0) {
             printf("Error el programa no permite caracteres solo numeros mayores a 0\n");
             /*En caso de marcar el error limpia el scanf para que no guarde ese valor erroneo*/
-            fflush(stdin);
-            printf("\n");
-            system("pause");
-            system("cls");
+            limpieza_codigo(c);
         }
         }while(simular_ahorro <=0);
         /*Se pide la semana que quiere hacer la simulacion de ahorro*/
@@ -93,10 +89,7 @@ case 4:
         if(scanf("%d", &semanas_imprimir) != 1 || semanas_imprimir <=0) {
             printf("Error el programa no permite caracteres solo numeros mayores a 0\n");
             /*En caso de marcar el error limpia el scanf para que no guarde ese valor erroneo*/
-            fflush(stdin);
-            printf("\n");
-            system("pause");
-            system("cls");
+            limpieza_codigo( c);
         }
         }while(semanas_imprimir <= 0);
         /*Se obtiene el procentaje de la reduccion y despues se resta con el consumo_agua*/
