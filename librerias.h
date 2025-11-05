@@ -27,11 +27,20 @@ int menu() {
             if(scanf("%d", &opcion) != 1 || opcion <=0) {
             printf("Error el programa no permite caracteres solo numeros mayores a 0\n");
             /*En caso de marcar el error limpia el scanf para que no guarde ese valor erroneo*/
+            printf("\n");
+        while ((c = getchar()) != '\n' && c != EOF);
+        printf("Presione una tecla para continuar\n");
+        getchar();
+        #ifdef _WIN32
+        system("cls");
+        #else
+        system("clear");
+        #endif
+        opcion = 0;
         }
         /*El bucle termima hasta que el usuario introduzca un valor mayor a cero*/
     }while(opcion <= 0);
-        printf("\n");
-        system("cls");
+
     return opcion;
 }
 /*Funcion para registrar las semanas*/
@@ -40,7 +49,7 @@ int Registro_semana() {
         printf("Cuantas semanas va a registrar?\n");
         /*Si el usuario ingresa un valor erroneo se reinicia hasta que ponga un valor numero y que sea mayor a cero*/
         if(scanf("%d", &semana_registro) != 1 ||semana_registro<=0 || semana_registro > 51) {
-            printf("Error el programa no permite caracteres solo numeros mayores a 0\n Ademas el limite de semanas a registrar es de 51\n");
+            printf("Error el programa no permite caracteres solo numeros mayores a 0\nAdemas el limite de semanas a registrar es de 51\n");
             /*En caso de marcar el error limpia el scanf para que no guarde ese valor erroneo*/
             limpieza_codigo(c);
             semana_registro = 0;
