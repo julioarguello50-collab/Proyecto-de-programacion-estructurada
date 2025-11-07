@@ -223,9 +223,14 @@ void nueva_semana(int Semana_extra,int *semana, int dias, float consumo_agua[51]
     
 }
 /*funcion para el caso 3*/
-void Reporte_global(int semana, int j,float promedio_agua[51]) {
+int  Reporte_global(int semana, int j,float promedio_agua[51]) {
     /*Esta funcion sirve para imprimir unicamente las semanas registradas mostrando unicamente 
     el total de agua consumida en cada semana*/
+    if (semana <= 0) {
+        printf("\nNo hay semanas registradas para mostrar.\n");
+        suma_global = 0;
+        return 0;
+    }
     for(j=0; j<semana;j++) 
     {
         if (j % 4 == 0) {
@@ -239,6 +244,7 @@ void Reporte_global(int semana, int j,float promedio_agua[51]) {
         printf("\\====================================================/ \n");
         printf("\n");
     }
+    return 1;
 }
 /*funcion para hacer la simulacion de agua*/
 void simular_reduccion(float porcentaje_reduccion, int semanas_imprimir, int simular_ahorro, float ahorro_agua, float consumo_agua[51][7],float reduccion_agua) {

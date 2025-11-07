@@ -65,13 +65,15 @@ case 2:
 case 3:/*Reporte global*/
     /*Se imprmien unicamente la semana sin los dias y el total de agua consumida en esa semana ademas del promedio de agua
     consumida en esa semana*/
-        Reporte_global(semana,j,promedio_agua);
-    
+        if (Reporte_global(semana,j,promedio_agua)){
         promedio_global = suma_global / semana;
         printf("\n/===========================================================\\\n");
         printf("El total de agua consumida en todas las semanas es de: %0.2f \n", suma_global);
         printf("El promedio total de agua es de: %0.2f \n", promedio_global);
-        printf("\\===========================================================/\n");
+        printf("\\===========================================================/\n");}
+        else {
+            /*no se imprime nada si la semana es menor a 0*/
+        }
         promedio_global = 0;
         suma_global = 0;
         limpieza_codigo(c);
