@@ -25,7 +25,7 @@ if(entrada == 1) {
         
         while(semana<semana_registro) {
             if(semana % 4 == 0) {
-                printf("Mes %d\n",(semana/4)+1);
+                printf("\nMes %d\n",(semana/4)+1);
             }
         printf("Semana %d\n",semana +1);
         while (dias < 7)
@@ -68,19 +68,24 @@ case 3:/*Reporte global*/
         Reporte_global(semana,j,promedio_agua);
     
         promedio_global = suma_global / semana;
+        printf("\n/===========================================================\\\n");
         printf("El total de agua consumida en todas las semanas es de: %0.2f \n", suma_global);
         printf("El promedio total de agua es de: %0.2f \n", promedio_global);
+        printf("\\===========================================================/\n");
+        promedio_global = 0;
         suma_global = 0;
         limpieza_codigo(c);
             break;
 case 4:
         /*Simulador de reduccion de agua*/
         do{
+        printf("\n/====================================\\ \n");
         printf("De cuanto quiere su reduccion de agua: \n");
         if(scanf("%d", &simular_ahorro) != 1 || simular_ahorro <=0) {
             printf("Error el programa no permite caracteres solo numeros mayores a 0\n");
             /*En caso de marcar el error limpia el scanf para que no guarde ese valor erroneo*/
             limpieza_codigo(c);
+            simular_ahorro = 0;
         }
         }while(simular_ahorro <=0);
         /*Se pide la semana que quiere hacer la simulacion de ahorro*/
@@ -90,12 +95,14 @@ case 4:
             printf("Error el programa no permite caracteres solo numeros mayores a 0\n");
             /*En caso de marcar el error limpia el scanf para que no guarde ese valor erroneo*/
             limpieza_codigo( c);
+            semanas_imprimir = 0;
         }
         }while(semanas_imprimir <= 0);
         /*Se obtiene el procentaje de la reduccion y despues se resta con el consumo_agua*/
         simular_reduccion(porcentaje_reduccion,semanas_imprimir,simular_ahorro, ahorro_agua,consumo_agua,reduccion_agua); 
         break;
-case 5: 
+case 5:
+printf("Saliendo.....\n");
 printf("Programa terminado\n");
 break;
 default: 
